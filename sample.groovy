@@ -1,4 +1,31 @@
-freeStyleJob('example') {
+// Folders
+folder( "${Application_Name}" ){
+
+}
+
+def sampleFolder = "${Application_Name}"
+def applicationName =  "${Application_Name}"
+
+// Jobs
+def generateBuildPipelineView = TitaniumBuildPipelineFolderName + "/Pipeline_View_" + applicationName
+def generateBuildJob = TitaniumBuildPipelineFolderName + "/mavenBuildJob_" + applicationName
+def generateCodeAnalysisJob = TitaniumBuildPipelineFolderName + "/codeAnalysisJob_" + applicationName
+def generateUploadToNexusJob = TitaniumBuildPipelineFolderName + "/uploadToNexusJob_" + applicationName
+def generateDeploymentToTOmcatJob = TitaniumBuildPipelineFolderName + "/deploymentToTomcat_" + applicationName
+
+// ##### GENERATE BUILD PIPELINE VIEW #####
+buildPipelineView(generateBuildPipelineView) {
+	title('Pipeline_View')
+    displayedBuilds(5)
+    selectedJob(generateBuildJob)
+    alwaysAllowManualTrigger()
+    showPipelineParameters()
+    refreshFrequency(5)
+}	
+// ##### END OF BUILD PIPELINE VIEW #####
+
+// ##### GENERATE MAVEN BUILD JOB #####
+freeStyleJob(generateBuildJob) {
     scm {
         git {
             remote {
@@ -29,3 +56,4 @@ freeStyleJob('example') {
         }
     }
 }
+// ##### END MAVEN BUILD JOB #####
