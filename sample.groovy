@@ -112,3 +112,21 @@ freeStyleJob(generateUploadToNexusJob) {
     }
 }
 // ##### END UPLOAD TO NEXUS JOB #####
+// ##### GENERATE DEPLOY TO TOMCAT JOB #####
+freeStyleJob(generateDeploymentToTOmcatJob) {
+    parameters {
+        stringParam('CUSTOM_WORKSPACE', '', '')
+    }
+	
+	customWorkspace('$CUSTOM_WORKSPACE')
+    
+	wrappers {
+		timestamps()
+    }
+	
+	steps {
+        batchFile('''copy /y target\*.war C:\apache-tomcat-8.5.16\webapps\''')
+    }
+    
+}
+// ##### END DEPLOY TO TOMCAT JOB #####
