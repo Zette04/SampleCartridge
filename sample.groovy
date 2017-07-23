@@ -72,6 +72,17 @@ freeStyleJob(generateCodeAnalysisJob) {
 	wrappers {
 		timestamps()
     }
+	
+	configure { project ->
+			project / 'builders' / 'hudson.plugins.sonar.SonarRunnerBuilder' {
+				'project'('')
+				'properties'('')
+				'javaOpts'('javaOpts')
+				'additionalArguments'('')
+				'jdk'('')
+				'task'('')
+			}
+	}
     
     publishers{
     	downstreamParameterized {
