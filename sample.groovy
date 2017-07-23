@@ -7,11 +7,11 @@ def sampleFolder = "${Application_Name}"
 def applicationName =  "${Application_Name}"
 
 // Jobs
-def generateBuildPipelineView = TitaniumBuildPipelineFolderName + "/Pipeline_View_" + applicationName
-def generateBuildJob = TitaniumBuildPipelineFolderName + "/mavenBuildJob_" + applicationName
-def generateCodeAnalysisJob = TitaniumBuildPipelineFolderName + "/codeAnalysisJob_" + applicationName
-def generateUploadToNexusJob = TitaniumBuildPipelineFolderName + "/uploadToNexusJob_" + applicationName
-def generateDeploymentToTOmcatJob = TitaniumBuildPipelineFolderName + "/deploymentToTomcat_" + applicationName
+def generateBuildPipelineView = sampleFolder + "/Pipeline_View_" + applicationName
+def generateBuildJob = sampleFolder + "/mavenBuildJob_" + applicationName
+def generateCodeAnalysisJob = sampleFolder + "/codeAnalysisJob_" + applicationName
+def generateUploadToNexusJob = sampleFolder + "/uploadToNexusJob_" + applicationName
+def generateDeploymentToTOmcatJob = sampleFolder + "/deploymentToTomcat_" + applicationName
 
 // ##### GENERATE BUILD PIPELINE VIEW #####
 buildPipelineView(generateBuildPipelineView) {
