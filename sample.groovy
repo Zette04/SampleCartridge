@@ -86,3 +86,29 @@ freeStyleJob(generateCodeAnalysisJob) {
     }
 }
 // ##### END CODE ANALYSIS JOB #####
+
+// ##### GENERATE UPLOAD TO NEXUS JOB #####
+freeStyleJob(generateUploadToNexusJob) {
+    parameters {
+        stringParam('CUSTOM_WORKSPACE', '', '')
+    }
+	
+	customWorkspace('$CUSTOM_WORKSPACE')
+    
+	wrappers {
+		timestamps()
+    }
+    
+    publishers{
+    	downstreamParameterized {
+            trigger(generateDeploymentToTOmcatJob) {
+                condition('SUCCESS')
+                parameters {
+			currentBuild()
+			predefinedProps([CUSTOM_WORKSPACE: '$WORKSPACE'])
+                }
+            }
+        }
+    }
+}
+// ##### END UPLOAD TO NEXUS JOB #####
