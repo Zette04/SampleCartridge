@@ -125,7 +125,7 @@ freeStyleJob(generateDeploymentToTOmcatJob) {
     }
 	
 	steps {
-        batchFile('''copy /y target\*.war C:\apache-tomcat-8.5.16\webapps\''')
+        batchFile('''copy /y target\\*.war C:\\apache-tomcat-8.5.16\\webapps\\''')
     }
     
 }
