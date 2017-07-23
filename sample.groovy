@@ -113,6 +113,7 @@ freeStyleJob(generateUploadToNexusJob) {
 				'groupId'('sample')
 				'version'('0.0.1')
 				'repository'('sample')
+				'credentialsId'('nexus-admin')
 				'artifacts'{
 					'sp.sd.nexusartifactuploader.Artifact'{
 						'artifactId'('sample')
