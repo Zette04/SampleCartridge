@@ -75,7 +75,7 @@ freeStyleJob(generateCodeAnalysisJob) {
     
     publishers{
     	downstreamParameterized {
-            trigger('sonarJob') {
+            trigger(generateUploadToNexusJob) {
                 condition('SUCCESS')
                 parameters {
 			currentBuild()
