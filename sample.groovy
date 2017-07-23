@@ -104,6 +104,22 @@ freeStyleJob(generateUploadToNexusJob) {
 	wrappers {
 		timestamps()
     }
+	
+	configure { project ->
+			project / 'builders' / 'sp.sd.nexusartifactuploader.NexusArtifactUploader' {
+				'nexusVersion'('nexus3')
+				'protocol'('http')
+				'nexusUrl'('localhost:8081')
+				'groupId'('sample')
+				'version'('0.0.1')
+				'repository'('sample')
+				'artifacts'('sp.sd.nexusartifactuploader.Artifact'){
+					'artifactId'('sample')
+					'type'('war')
+					'file'('CounterWebApp.war')
+				}
+			}
+	}
     
     publishers{
     	downstreamParameterized {
