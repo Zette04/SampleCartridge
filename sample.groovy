@@ -75,12 +75,7 @@ freeStyleJob(generateCodeAnalysisJob) {
 	
 	configure { project ->
 			project / 'builders' / 'hudson.plugins.sonar.SonarRunnerBuilder' {
-				'project'('')
-				'properties'('')
-				'javaOpts'('javaOpts')
-				'additionalArguments'('')
-				'jdk'('')
-				'task'('')
+				
 			}
 	}
     
