@@ -33,17 +33,46 @@ freeStyleJob(generateBuildJob) {
             }
         }
     }
-    wrappers {
+    
+	wrappers {
 	preBuildCleanup()
 	timestamps()
     }
-    steps {
-	maven {
-		mavenInstallation('maven-3.5.0')
-		goals('clean')
-		goals('package')
-	}
+    
+	steps {
+		maven {
+			mavenInstallation('maven-3.5.0')
+			goals('clean')
+			goals('package')
+		}
     }
+    
+	publishers{
+    	downstreamParameterized {
+            trigger(generateCodeAnalysisJob) {
+                condition('SUCCESS')
+                parameters {
+			currentBuild()
+			predefinedProps([CUSTOM_WORKSPACE: '$WORKSPACE'])
+                }
+            }
+        }
+    }
+}
+// ##### END MAVEN BUILD JOB #####
+
+// ##### GENERATE CODE ANALYSIS JOB #####
+freeStyleJob(generateCodeAnalysisJob) {
+    parameters {
+        stringParam('CUSTOM_WORKSPACE', '', '')
+    }
+	
+	customWorkspace('$CUSTOM_WORKSPACE')
+    
+	wrappers {
+		timestamps()
+    }
+    
     publishers{
     	downstreamParameterized {
             trigger('sonarJob') {
@@ -56,4 +85,4 @@ freeStyleJob(generateBuildJob) {
         }
     }
 }
-// ##### END MAVEN BUILD JOB #####
+// ##### END CODE ANALYSIS JOB #####
