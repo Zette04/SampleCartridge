@@ -113,10 +113,12 @@ freeStyleJob(generateUploadToNexusJob) {
 				'groupId'('sample')
 				'version'('0.0.1')
 				'repository'('sample')
-				'artifacts'('sp.sd.nexusartifactuploader.Artifact'){
-					'artifactId'('sample')
-					'type'('war')
-					'file'('CounterWebApp.war')
+				'artifacts'{
+					'sp.sd.nexusartifactuploader.Artifact'{
+						'artifactId'('sample')
+						'type'('war')
+						'file'('CounterWebApp.war')
+					}
 				}
 			}
 	}
