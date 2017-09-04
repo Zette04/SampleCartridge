@@ -1,10 +1,10 @@
 // Folders
-folder( "${Application-Name}" ){
+folder( "${Application_Name}" ){
 
 }
 
-def sampleFolder = "${Application-Name}"
-def applicationName =  "${Application-Name}"
+def sampleFolder = "${Application_Name}"
+def applicationName =  "${Application_Name}"
 
 // Jobs
 def generateBuildPipelineView = sampleFolder + "/Build-Pipeline-View_" + applicationName
