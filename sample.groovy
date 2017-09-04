@@ -7,151 +7,100 @@ def sampleFolder = "${Application_Name}"
 def applicationName =  "${Application_Name}"
 
 // Jobs
-def generateBuildPipelineView = sampleFolder + "/Pipeline_View_" + applicationName
-def generateBuildJob = sampleFolder + "/mavenBuildJob_" + applicationName
-def generateCodeAnalysisJob = sampleFolder + "/codeAnalysisJob_" + applicationName
-def generateUploadToNexusJob = sampleFolder + "/uploadToNexusJob_" + applicationName
-def generateDeploymentToTOmcatJob = sampleFolder + "/deploymentToTomcat_" + applicationName
+def generateBuildPipelineView = sampleFolder + "/Sample_Build-Pipeline-View_" + applicationName
+def generateJobA = sampleFolder + "/jobA_" + applicationName
+def generateJobB = sampleFolder + "/jobB_" + applicationName
+def generateJobC = sampleFolder + "/jobC_" + applicationName
+def generateJobD = sampleFolder + "/jobD_" + applicationName
 
 // ##### GENERATE BUILD PIPELINE VIEW #####
 buildPipelineView(generateBuildPipelineView) {
 	title('Pipeline_View')
     displayedBuilds(5)
-    selectedJob(generateBuildJob)
+    selectedJob(generateJobA)
     alwaysAllowManualTrigger()
     showPipelineParameters()
     refreshFrequency(5)
 }	
 // ##### END OF BUILD PIPELINE VIEW #####
 
-// ##### GENERATE MAVEN BUILD JOB #####
-freeStyleJob(generateBuildJob) {
-    scm {
-        git {
-            remote {
-                url("https://github.com/jareddeuna/SampleWebApp.git")
-            }
-        }
-    }
-    
+// ##### GENERATE JOB A ####
+freeStyleJob(generateJobA) {
 	wrappers {
 	preBuildCleanup()
 	timestamps()
     }
     
 	steps {
-		maven {
-			mavenInstallation('maven-3.5.0')
-			goals('clean')
-			goals('package')
-		}
+		powerShell('Write-Output "Hello World!"')
     }
     
 	publishers{
     	downstreamParameterized {
-            trigger(generateCodeAnalysisJob) {
+            trigger(generateJobB) {
                 condition('SUCCESS')
                 parameters {
-			currentBuild()
-			predefinedProps([CUSTOM_WORKSPACE: '$WORKSPACE'])
+					currentBuild()
                 }
             }
         }
     }
 }
-// ##### END MAVEN BUILD JOB #####
+// ##### END OF JOB A ####
 
-// ##### GENERATE CODE ANALYSIS JOB #####
-freeStyleJob(generateCodeAnalysisJob) {
-    parameters {
-        stringParam('CUSTOM_WORKSPACE', '', '')
-    }
-	
-	customWorkspace('$CUSTOM_WORKSPACE')
-    
+// ##### GENERATE JOB B ####
+freeStyleJob(generateJobB) {
 	wrappers {
-		timestamps()
+	timestamps()
     }
-	
-	configure { project ->
-			project / 'builders' / 'hudson.plugins.sonar.SonarRunnerBuilder' {
-				
-			}
-	}
     
-    publishers{
-    	downstreamParameterized {
-            trigger(generateUploadToNexusJob) {
-                condition('SUCCESS')
-                parameters {
-			currentBuild()
-			predefinedProps([CUSTOM_WORKSPACE: '$WORKSPACE'])
-                }
-            }
-        }
-    }
-}
-// ##### END CODE ANALYSIS JOB #####
-
-// ##### GENERATE UPLOAD TO NEXUS JOB #####
-freeStyleJob(generateUploadToNexusJob) {
-    parameters {
-        stringParam('CUSTOM_WORKSPACE', '', '')
-    }
-	
-	customWorkspace('$CUSTOM_WORKSPACE')
-    
-	wrappers {
-		timestamps()
-    }
-	
-	configure { project ->
-			project / 'builders' / 'sp.sd.nexusartifactuploader.NexusArtifactUploader' {
-				'nexusVersion'('nexus3')
-				'protocol'('http')
-				'nexusUrl'('localhost:8081')
-				'groupId'('sample')
-				'version'('0.0.1')
-				'repository'('sample')
-				'credentialsId'('nexus-admin')
-				'artifacts'{
-					'sp.sd.nexusartifactuploader.Artifact'{
-						'artifactId'('sample')
-						'type'('war')
-						'file'('CounterWebApp.war')
-					}
-				}
-			}
-	}
-    
-    publishers{
-    	downstreamParameterized {
-            trigger(generateDeploymentToTOmcatJob) {
-                condition('SUCCESS')
-                parameters {
-			currentBuild()
-			predefinedProps([CUSTOM_WORKSPACE: '$WORKSPACE'])
-                }
-            }
-        }
-    }
-}
-// ##### END UPLOAD TO NEXUS JOB #####
-// ##### GENERATE DEPLOY TO TOMCAT JOB #####
-freeStyleJob(generateDeploymentToTOmcatJob) {
-    parameters {
-        stringParam('CUSTOM_WORKSPACE', '', '')
-    }
-	
-	customWorkspace('$CUSTOM_WORKSPACE')
-    
-	wrappers {
-		timestamps()
-    }
-	
 	steps {
-        batchFile('''copy /y target\\*.war C:\\apache-tomcat-8.5.16\\webapps\\''')
+		powerShell('Write-Output "Hello World!"')
     }
     
+	publishers{
+    	downstreamParameterized {
+            trigger(generateJobC) {
+                condition('SUCCESS')
+                parameters {
+					currentBuild()
+                }
+            }
+        }
+    }
 }
-// ##### END DEPLOY TO TOMCAT JOB #####
+// ##### END OF JOB B ####
+
+// ##### GENERATE JOB C ####
+freeStyleJob(generateJobC) {
+	wrappers {
+	timestamps()
+    }
+    
+	steps {
+		powerShell('Write-Output "Hello World!"')
+    }
+    
+	publishers{
+    	downstreamParameterized {
+            trigger(generateJobD) {
+                condition('SUCCESS')
+                parameters {
+					currentBuild()
+                }
+            }
+        }
+    }
+}
+// ##### END OF JOB C ####
+// ##### GENERATE JOB D ####
+freeStyleJob(generateJobD) {
+	wrappers {
+	timestamps()
+    }
+    
+	steps {
+		powerShell('Write-Output "Hello World!"')
+    }
+}
+// ##### END OF JOB D ####
