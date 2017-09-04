@@ -15,7 +15,7 @@ def generateJobD = sampleFolder + "/jobD_" + applicationName
 
 // ##### GENERATE BUILD PIPELINE VIEW #####
 buildPipelineView(generateBuildPipelineView) {
-	title('Pipeline_View')
+	title('Build-Pipeline-View')
     displayedBuilds(5)
     selectedJob(generateJobA)
     alwaysAllowManualTrigger()
