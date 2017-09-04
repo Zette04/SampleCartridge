@@ -26,9 +26,17 @@ buildPipelineView(generateBuildPipelineView) {
 
 // ##### GENERATE JOB A ####
 freeStyleJob(generateJobA) {
+	blockOnDownstreamProjects()
+	
+	logRotator {
+        daysToKeep(7)
+        artifactDaysToKeep(7)
+		artifactNumToKeep(10)
+    }
+	
 	wrappers {
-	preBuildCleanup()
-	timestamps()
+		preBuildCleanup()
+		timestamps()
     }
     
 	steps {
@@ -39,9 +47,7 @@ freeStyleJob(generateJobA) {
     	downstreamParameterized {
             trigger(generateJobB) {
                 condition('SUCCESS')
-                parameters {
-					currentBuild()
-                }
+                triggerWithNoParameters(true)
             }
         }
     }
@@ -50,8 +56,14 @@ freeStyleJob(generateJobA) {
 
 // ##### GENERATE JOB B ####
 freeStyleJob(generateJobB) {
+	logRotator {
+        daysToKeep(7)
+        artifactDaysToKeep(7)
+		artifactNumToKeep(10)
+    }
+	
 	wrappers {
-	timestamps()
+		timestamps()
     }
     
 	steps {
@@ -63,7 +75,7 @@ freeStyleJob(generateJobB) {
             trigger(generateJobC) {
                 condition('SUCCESS')
                 parameters {
-					currentBuild()
+					triggerWithNoParameters(true)
                 }
             }
         }
@@ -73,8 +85,14 @@ freeStyleJob(generateJobB) {
 
 // ##### GENERATE JOB C ####
 freeStyleJob(generateJobC) {
+	logRotator {
+        daysToKeep(7)
+        artifactDaysToKeep(7)
+		artifactNumToKeep(10)
+    }
+	
 	wrappers {
-	timestamps()
+		timestamps()
     }
     
 	steps {
@@ -86,7 +104,7 @@ freeStyleJob(generateJobC) {
             trigger(generateJobD) {
                 condition('SUCCESS')
                 parameters {
-					currentBuild()
+					triggerWithNoParameters(true)
                 }
             }
         }
@@ -95,8 +113,13 @@ freeStyleJob(generateJobC) {
 // ##### END OF JOB C ####
 // ##### GENERATE JOB D ####
 freeStyleJob(generateJobD) {
+	logRotator {
+        daysToKeep(7)
+        artifactDaysToKeep(7)
+		artifactNumToKeep(10)
+    }
 	wrappers {
-	timestamps()
+		timestamps()
     }
     
 	steps {
