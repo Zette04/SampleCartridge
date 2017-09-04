@@ -1,13 +1,13 @@
 // Folders
-folder( "${Application_Name}" ){
+folder( "${Application-Name}" ){
 
 }
 
-def sampleFolder = "${Application_Name}"
-def applicationName =  "${Application_Name}"
+def sampleFolder = "${Application-Name}"
+def applicationName =  "${Application-Name}"
 
 // Jobs
-def generateBuildPipelineView = sampleFolder + "/Sample_Build-Pipeline-View_" + applicationName
+def generateBuildPipelineView = sampleFolder + "/Build-Pipeline-View_" + applicationName
 def generateJobA = sampleFolder + "/jobA_" + applicationName
 def generateJobB = sampleFolder + "/jobB_" + applicationName
 def generateJobC = sampleFolder + "/jobC_" + applicationName
@@ -15,7 +15,7 @@ def generateJobD = sampleFolder + "/jobD_" + applicationName
 
 // ##### GENERATE BUILD PIPELINE VIEW #####
 buildPipelineView(generateBuildPipelineView) {
-	title('Sample_Build-Pipeline-View_' + applicationName)
+	title('Build-Pipeline-View_' + applicationName)
     displayedBuilds(5)
     selectedJob("jobA_" + applicationName)
     alwaysAllowManualTrigger()
