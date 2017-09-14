@@ -1,5 +1,7 @@
 
-node {
+node 
+{
+deleteDir()
 
 stage ("Clone the SimpleCartridge Repository")
 	{
@@ -8,5 +10,8 @@ stage ("Clone the SimpleCartridge Repository")
 	echo: "Starting another stage."
 	}
 	
-stage ("Hello World!") {}
+stage ("Process Groovy files") 
+	{
+	jobDsl targets: '*.groovy'
+	}
 }
