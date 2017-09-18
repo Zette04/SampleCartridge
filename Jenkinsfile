@@ -1,4 +1,4 @@
-def TEST_VALUE=1
+def TEST_VALUE=0
 
 
 
@@ -18,8 +18,8 @@ stage ("Process Groovy files")
 	jobDsl targets: '*.groovy'
 	
 	echo: TEST_VALUE
-	if ( TEST_VALUE != 0 ) {
-		echo "TEST_VALUE is not equal to zero"
+	if ( TEST_VALUE != 1 ) {
+		echo "TEST_VALUE is not equal to one"
 		sh "exit 0"
 	}
 	}
